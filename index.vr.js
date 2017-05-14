@@ -22,11 +22,12 @@ class App extends Component {
     }
   }
 
-  incrementScene = (e) => {
+  incrementScene = () => {
+  	console.log('inc')
 	this.changeScene(this.state.sceneIndex+1);
   }
 
-  decrementScene = (e) => {
+  decrementScene = () => {
     this.changeScene(this.state.sceneIndex-1);
   }
 
@@ -61,7 +62,7 @@ class Scene extends Component {
   }
 
   componentDidMount() {
-  	setTimeout(() => this.props.incrementScene({}), this.props.scenery.duration);
+  	setTimeout(this.props.incrementScene, this.props.scenery.duration);
   }
 
   componentWillReceiveProps(nextProps) {

@@ -1,25 +1,38 @@
 export default scene = {
-  pano: 'BuildingInterior_360.jpg',
-  duration: 8000,
-  audio: 'sound.m4a',
+  pano: '360/FamilyBanquet_360.jpg',
+  duration: 28000,
+  audio: 'Sound/Family life.m4a',
   images: [
     {
-      path: 'old_woman_broom.jpg',
-      showtime: 2000,
-      hidetime: 4000,
+      path: '2D/mothers_with_children.jpg',
+      showtime: 4000,
+      hidetime: 11000,
       style: {
         position: 'absolute',
         height: 196,
         width: 290,
         transform: [
-          {translate: [-300, 50, -400]}
+          {translate: [-300, 50, -500]}
         ]
       }
     },
     {
-      path: 'old_woman_broom2.jpg',
-      showtime: 5000,
-      hidetime: 7000,
+      path: '2D/preparing_dinner.jpg',
+      showtime: 11000,
+      hidetime: 16000,
+      style: {
+        position: 'absolute',
+        height: 196,
+        width: 290,
+        transform: [
+            {translate: [-100, 50, -500]}
+        ]
+      }
+    },
+    {
+      path: '2D/eating_dinner.jpg',
+      showtime: 16000,
+      hidetime: 28000,
       style: {
         position: 'absolute',
         height: 196,
