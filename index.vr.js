@@ -8,11 +8,43 @@ import {
   Text,
   View
 } from 'react-vr';
+const VrButton = require('VrButton');
+
 
 class CityGreeting extends Component {
   render(){
     return(
       <Text> Hello {this.props.name}!</Text>
+    );
+  }
+}
+
+class Button extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+  }
+  render() {
+    return (
+      <VrButton
+        onClick={() => {
+          this.setState({open: !this.state.open});
+        }}
+      >
+        <Image
+          style={{
+            //borderRadius: 20,
+            height: this.state.open ? 196 : 0,
+            margin: 10,
+            width: this.state.open ? 290 : 0,
+            transform: [
+                {translate: [60, 90, 0]},
+                {rotateY: -90}
+              ]
+          }}
+          source={asset('old_woman_broom.jpg')}
+        />
+      </VrButton>
     );
   }
 }
@@ -24,20 +56,8 @@ class WelcomeToVR extends Component {
       <View> 
         <Pano source={asset('VillageOverview_360.jpg')}/>
 
-         <Image
-          style={{
-            //borderRadius: 10,
-            height: 196,
-            margin: 10,
-            width: 290,
-            transform: [
-                {translate: [60, 90, 0]},
-                {rotateY: -90}
-              ]
-          }}
-          source={asset('old_woman_broom.jpg')}
-        />
-
+        <Button />
+        
         <Image
           style={{
             //borderRadius: 10,
