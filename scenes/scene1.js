@@ -25,7 +25,7 @@ export default scene = {
         height: 196,
         width: 290,
         transform: [
-            {translate: [100, 50, -500]},
+            {translate: [100, 50, -500]}
         ]
       }
     },

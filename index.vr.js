@@ -17,12 +17,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      sceneIndex: 0
+      sceneIndex: 0,
+      numScenes: scenes.length
     }
   }
 
   incrementScene = (e) => {
-	this.changeScene(this.state.sceneIndex+1);    
+	this.changeScene(this.state.sceneIndex+1);
   }
 
   decrementScene = (e) => {
@@ -30,12 +31,17 @@ class App extends Component {
   }
 
   changeScene = (sceneIndex) => {
+  	sceneIndex = sceneIndex % this.state.numScenes;
     this.setState({sceneIndex});
   }
 
   render() {
     return (
-      <Scene scenery={scenes[this.state.sceneIndex]} incrementScene={this.incrementScene} sound={<Sound source={asset(scenes[this.state.sceneIndex].audio)} />} />
+      <Scene
+      	sceneIndex={this.state.sceneIndex}
+      	scenery={scenes[this.state.sceneIndex]}
+      	incrementScene={this.incrementScene}
+      	sound={<Sound source={asset(scenes[this.state.sceneIndex].audio)} />} />
     );
   }
 }
@@ -67,7 +73,7 @@ class Scene extends Component {
     return (
       <View> 
       	<VrButton onClick={this.props.incrementScene} ignoreLongClick={true}>
-        	<Pano source={asset(this.props.scenery.pano)}/>
+        	<Pano source={asset(this.props.scenery.pano)} />
         </VrButton>
 
 		{this.state.sound}
@@ -90,26 +96,32 @@ class SceneImage extends Component {
   constructor() {
     super();
     this.state = {
-      visible: false
+      visible: false,
+      sceneIndex: 0
     }
   }
 
   componentDidMount() {
-  	setTimeout(this.becomeVisible, this.props.img.showtime);
-  	setTimeout(this.becomeInvisible, this.props.img.hidetime);
+  	setTimeout(()=>this.becomeVisible(this.state.sceneIndex), this.props.img.showtime);
+  	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
   }
 
   componentWillReceiveProps() {
-  	setTimeout(this.becomeVisible, this.props.img.showtime);
-  	setTimeout(this.becomeInvisible, this.props.img.hidetime);
+  	this.setState({sceneIndex:this.state.sceneIndex+1})
+  	setTimeout(()=>this.becomeVisible(this.state.sceneIndex), this.props.img.showtime);
+  	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
   }
 
-  becomeVisible = () => {
-    this.setState({visible: true});
+  becomeVisible = (idx) => {
+  	if (idx == this.state.sceneIndex) {
+  		this.setState({visible: true});
+  	}
   }
 
-  becomeInvisible = () => {
-    this.setState({visible: false});
+  becomeInvisible = (idx) => {
+  	if (idx == this.state.sceneIndex) {
+    	this.setState({visible: false});
+    }
   }
 
   render() {

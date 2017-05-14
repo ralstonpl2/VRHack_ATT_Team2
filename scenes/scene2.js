@@ -12,8 +12,7 @@ export default scene = {
         height: 196,
         width: 290,
         transform: [
-          {translate: [-400, 520, 0]},
-          {rotateY: 90}
+          {translate: [-300, 50, -400]}
         ]
       }
     },
@@ -26,8 +25,7 @@ export default scene = {
         height: 196,
         width: 290,
         transform: [
-            {translate: [-200, 300, 250]},
-            {rotateY: 175}
+            {translate: [100, 50, -500]}
         ]
       }
     },
