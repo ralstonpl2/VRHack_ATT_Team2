@@ -35,7 +35,7 @@ class App extends Component {
 
   render() {
     return (
-      <Scene scenery={scenes[this.state.sceneIndex]} incrementScene={this.incrementScene} />
+      <Scene scenery={scenes[this.state.sceneIndex]} incrementScene={this.incrementScene} sound={<Sound source={asset(scenes[this.state.sceneIndex].audio)} />} />
     );
   }
 }
@@ -46,12 +46,21 @@ class App extends Component {
 
 class Scene extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+    	sound: this.props.sound
+    }
   }
 
   componentDidMount() {
   	setTimeout(() => this.props.incrementScene({}), this.props.scenery.duration);
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	console.log(nextProps)
+  	this.setState({sound:null});
+  	setTimeout(() => this.setState({sound:nextProps.sound}), 500)
   }
 
   render() {
@@ -61,7 +70,7 @@ class Scene extends Component {
         	<Pano source={asset(this.props.scenery.pano)}/>
         </VrButton>
 
-        <Sound source={asset(this.props.scenery.audio)} />
+		{this.state.sound}
         
         {this.props.scenery.images.map((img, index) =>
           <SceneImage key={index} img={img} />
@@ -105,10 +114,11 @@ class SceneImage extends Component {
 
   render() {
     return (
-      <Image
-        style={this.state.visible ? this.props.img.style : {}}
-        source={asset(this.props.img.path)}
-      />
+		<Image
+		style={this.state.visible ? this.props.img.style : Object.assign({},this.props.img.style,{transform: [{translate: [100, 50, -5000]}]})}
+		source={asset(this.props.img.path)}
+		/>
+				
     );
   }
 }

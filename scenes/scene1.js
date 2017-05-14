@@ -1,12 +1,12 @@
 export default scene = {
   pano: 'VillageOverview_360.jpg',
-  duration: 20000,
-  audio: '/sound.m4a',
+  duration: 8000,
+  audio: 'sound - Copy.m4a',
   images: [
     {
       path: 'village_houses.jpg',
-      showtime: 3000,
-      hidetime: 10000,
+      showtime: 2000,
+      hidetime: 4000,
       style: {
         position: 'absolute',
         height: 196,
@@ -19,14 +19,14 @@ export default scene = {
     {
       path: 'farmer.jpg',
       position: 'absolute',
-      showtime: 13000,
-      hidetime: 20000,
+      showtime: 5000,
+      hidetime: 7000,
       style: {
-      height: 196,
-      width: 290,
-      transform: [
-          {translate: [100, 50, -500]},
-      ]
+        height: 196,
+        width: 290,
+        transform: [
+            {translate: [100, 50, -500]},
+        ]
       }
     },
   ]
