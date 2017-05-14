@@ -55,7 +55,8 @@ class Scene extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    	sound: this.props.sound
+    	sound: this.props.sound,
+    	images: this.props.scenery.images
     }
   }
 
@@ -64,7 +65,8 @@ class Scene extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-  	console.log(nextProps)
+  	this.setState({images:[]})
+  	this.setState({images:nextProps.scenery.images})
   	this.setState({sound:null});
   	setTimeout(() => this.setState({sound:nextProps.sound}), 500)
   }
@@ -78,7 +80,7 @@ class Scene extends Component {
 
 		{this.state.sound}
         
-        {this.props.scenery.images.map((img, index) =>
+        {this.state.images.map((img, index) =>
           <SceneImage key={index} img={img} />
         )}
 
