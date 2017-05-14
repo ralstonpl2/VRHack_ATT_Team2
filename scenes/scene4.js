@@ -9,8 +9,8 @@ export default scene = {
       hidetime: 21000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
           {translate: [-300, 50, -400]}
         ]
@@ -22,8 +22,8 @@ export default scene = {
       hidetime: 27000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
             {translate: [-100, 50, -500]}
         ]
@@ -35,8 +35,8 @@ export default scene = {
       hidetime: 41000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
             {translate: [100, 50, -500]}
         ]

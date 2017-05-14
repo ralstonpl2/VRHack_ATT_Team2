@@ -66,10 +66,9 @@ class Scene extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-  	this.setState({images:[]})
-  	this.setState({images:nextProps.scenery.images})
+  	this.setState({images:nextProps.scenery.images});
   	this.setState({sound:null});
-  	setTimeout(() => this.setState({sound:nextProps.sound}), 500)
+  	setTimeout(() => this.setState({sound:nextProps.sound}), 500);
   }
 
   render() {
@@ -81,9 +80,11 @@ class Scene extends Component {
 
 		{this.state.sound}
         
-        {this.state.images.map((img, index) =>
-          <SceneImage key={index} img={img} />
-        )}
+    	{
+    		this.state.images.map((img, index) =>
+	          <SceneImage key={index + this.props.sceneIndex*100} img={img} />
+	        )
+    	}
 
       </View>
     );
@@ -105,14 +106,17 @@ class SceneImage extends Component {
   }
 
   componentDidMount() {
+  	console.log('true')
+  	this.becomeInvisible(this.state.sceneIndex);
   	setTimeout(()=>this.becomeVisible(this.state.sceneIndex), this.props.img.showtime);
   	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
   }
 
-  componentWillReceiveProps() {
-  	this.setState({sceneIndex:this.state.sceneIndex+1})
+  componentWillReceiveProps(nextProps) {
+  	this.becomeInvisible(this.state.sceneIndex);
+  	this.setState({sceneIndex:this.state.sceneIndex+1});
+ 	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
   	setTimeout(()=>this.becomeVisible(this.state.sceneIndex), this.props.img.showtime);
-  	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
   }
 
   becomeVisible = (idx) => {

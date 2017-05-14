@@ -6,11 +6,11 @@ export default scene = {
     {
       path: '2D/village_houses.jpg',
       showtime: 5000,
-      hidetime: 12000,
+      hidetime: 10000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
           {translate: [-300, 50, -500]}
         ]
@@ -22,8 +22,8 @@ export default scene = {
       hidetime: 18000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
             {translate: [-100, 50, -500]}
         ]
@@ -35,8 +35,8 @@ export default scene = {
       hidetime: 29000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
             {translate: [100, 50, -500]}
         ]

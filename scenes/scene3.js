@@ -1,7 +1,7 @@
 export default scene = {
   pano: '360/BurialRitual_360.jpg',
   duration: 29000,
-  audio: 'Sound/Village Overview.m4a',
+  audio: 'Sound/Burial Ritual.m4a',
   images: [
     {
       path: '2D/boy_burns_incense.jpg',
@@ -9,8 +9,8 @@ export default scene = {
       hidetime: 10000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
           {translate: [-300, 50, -500]}
         ]
@@ -22,8 +22,8 @@ export default scene = {
       hidetime: 20000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
             {translate: [-100, 50, -500]}
         ]
@@ -35,8 +35,8 @@ export default scene = {
       hidetime: 29000,
       style: {
         position: 'absolute',
-        height: 196,
-        width: 290,
+        height: 300,
+        width: 450,
         transform: [
             {translate: [100, 50, -500]}
         ]
