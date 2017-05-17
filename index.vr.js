@@ -6,143 +6,140 @@ import {
   Pano,
   Image,
   Text,
-  View
+  View,
+  VrButton,
+  Sound
 } from 'react-vr';
-const VrButton = require('VrButton');
+import scenes from './scenes/'
 
+class App extends Component {
 
-class CityGreeting extends Component {
-  render(){
-    return(
-      <Text> Hello {this.props.name}!</Text>
-    );
+  constructor() {
+    super();
+    this.state = {
+      sceneIndex: 0,
+      numScenes: scenes.length
+    }
   }
-}
 
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
+  incrementScene = () => {
+  	console.log('inc')
+	this.changeScene(this.state.sceneIndex+1);
   }
+
+  decrementScene = () => {
+    this.changeScene(this.state.sceneIndex-1);
+  }
+
+  changeScene = (sceneIndex) => {
+  	sceneIndex = sceneIndex % this.state.numScenes;
+    this.setState({sceneIndex});
+  }
+
   render() {
     return (
-      <VrButton
-        onClick={() => {
-          this.setState({open: !this.state.open});
-        }}
-      >
-        <Image
-          style={{
-            //borderRadius: 20,
-            height: this.state.open ? 196 : 0,
-            margin: 10,
-            width: this.state.open ? 290 : 0,
-            transform: [
-                {translate: [60, 90, 0]},
-                {rotateY: -90}
-              ]
-          }}
-          source={asset('old_woman_broom.jpg')}
-        />
-      </VrButton>
+      <Scene
+      	sceneIndex={this.state.sceneIndex}
+      	scenery={scenes[this.state.sceneIndex]}
+      	incrementScene={this.incrementScene}
+      	sound={<Sound source={asset(scenes[this.state.sceneIndex].audio)} />} />
     );
   }
 }
 
-class WelcomeToVR extends Component {
+
+
+
+
+class Scene extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    	sound: this.props.sound,
+    	images: this.props.scenery.images
+    }
+  }
+
+  componentDidMount() {
+  	setTimeout(this.props.incrementScene, this.props.scenery.duration);
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	this.setState({images:nextProps.scenery.images});
+  	this.setState({sound:null});
+  	setTimeout(() => this.setState({sound:nextProps.sound}), 500);
+  }
 
   render() {
     return (
       <View> 
-        <Pano source={asset('VillageOverview_360.jpg')}/>
+      	<VrButton onClick={this.props.incrementScene} ignoreLongClick={true}>
+        	<Pano source={asset(this.props.scenery.pano)} />
+        </VrButton>
 
-        <Button />
+		{this.state.sound}
         
-        <Image
-          style={{
-            //borderRadius: 10,
-            height: 196,
-            margin: 10,
-            width: 290,
-            transform: [
-                {translate: [-200, 300, 250]},
-                {rotateY: 175}
-              ]
-          }}
-          source={asset('farmer.jpg')}
-        />
-
-        <Image
-          style={{
-            //borderRadius: 10,
-            height: 196,
-            margin: 10,
-            width: 290,
-            transform: [
-                {translate: [-400, 520, 0]},
-                {rotateY: 90}
-              ]
-          }}
-          source={asset('village_houses.jpg')}
-        />
-
-        <View
-          style={{
-            backgroundColor: 'red',
-            fontSize: 3,
-            fontWeight: '400',
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 0.2,
-            paddingRight: 0.2,
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            transform: [
-                {translate: [3, 0.2, 0]},
-                {rotateY: -90}
-              ],
-          }}>
-          <CityGreeting name='Shanghai' />
-        </View>
-
-        <View
-          style={{
-            backgroundColor: 'red',
-            fontSize: 3,
-            fontWeight: '400',
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 0.25,
-            paddingRight: 0.2,
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            transform: [
-              {translate: [3, 0.2, 0]},
-              {rotateY: -90}
-            ],
-          }}>
-          <CityGreeting name='Beijing'/>
-        </View>
-
-        <View
-          style={{
-            backgroundColor: 'red',
-            fontSize: 3,
-            fontWeight: '400',
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 0.25,
-            paddingRight: 0.2,
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            transform: [
-              {translate: [-3, 0.3, 0]},
-              {rotateY: 90}
-            ],
-          }}>
-          <CityGreeting name='Chengdu'/>
-        </View>
+    	{
+    		this.state.images.map((img, index) =>
+	          <SceneImage key={index + this.props.sceneIndex*100} img={img} />
+	        )
+    	}
 
       </View>
     );
   }
 }
 
-AppRegistry.registerComponent('WelcomeToVR', () => WelcomeToVR);
+
+
+
+
+class SceneImage extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      visible: false,
+      sceneIndex: 0
+    }
+  }
+
+  componentDidMount() {
+  	console.log('true')
+  	this.becomeInvisible(this.state.sceneIndex);
+  	setTimeout(()=>this.becomeVisible(this.state.sceneIndex), this.props.img.showtime);
+  	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	this.becomeInvisible(this.state.sceneIndex);
+  	this.setState({sceneIndex:this.state.sceneIndex+1});
+ 	setTimeout(()=>this.becomeInvisible(this.state.sceneIndex), this.props.img.hidetime);
+  	setTimeout(()=>this.becomeVisible(this.state.sceneIndex), this.props.img.showtime);
+  }
+
+  becomeVisible = (idx) => {
+  	if (idx == this.state.sceneIndex) {
+  		this.setState({visible: true});
+  	}
+  }
+
+  becomeInvisible = (idx) => {
+  	if (idx == this.state.sceneIndex) {
+    	this.setState({visible: false});
+    }
+  }
+
+  render() {
+    return (
+		<Image
+		style={this.state.visible ? this.props.img.style : Object.assign({},this.props.img.style,{transform: [{translate: [100, 50, -5000]}]})}
+		source={asset(this.props.img.path)}
+		/>
+				
+    );
+  }
+}
+
+AppRegistry.registerComponent('App', () => App);

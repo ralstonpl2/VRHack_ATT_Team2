@@ -6,8 +6,8 @@ httpProxy.createProxyServer(
   {
     target:'http://localhost:8081',
     ssl: {
-      key: fs.readFileSync('key.pem', 'utf8'),
-      cert: fs.readFileSync('cert.pem', 'utf8'),
+      key: fs.readFileSync('./ssl/key.pem', 'utf8'),
+      cert: fs.readFileSync('./ssl/cert.pem', 'utf8'),
       passphrase: 'password'
     },
   }).listen(8000); 
