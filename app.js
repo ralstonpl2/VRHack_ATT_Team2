@@ -9,7 +9,7 @@ const port = process.env.PORT || 8081;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/build', express.static(path.join(__dirname, 'vr/build')));
-
+app.use('/', express.static(path.join(__dirname, 'vr')));
 
 // Add headers
 app.use((req, res, next) => {
