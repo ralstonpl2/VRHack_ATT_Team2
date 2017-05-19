@@ -7,13 +7,17 @@
     "bundle": "node node_modules/react-vr/scripts/bundle.js"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
     "http-proxy": "^1.16.2",
     "ovrui": "~1.0.0",
+    "path": "^0.12.7",
     "react": "~15.4.1",
     "react-native": "~0.42.0",
     "react-sound": "^0.6.1",
     "react-vr": "~1.0.0",
     "react-vr-web": "~1.0.0",
+    "request": "^2.81.0",
     "three": "^0.80.1"
   },
   "devDependencies": {
